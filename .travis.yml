@@ -1,0 +1,14 @@
+# Require superuser permission to use docker
+sudo: required
+
+# Telling Travis CI that we need the docker cli preinstalled
+services:
+  - docker
+
+# commands exectued before tests are run or project is deployed
+before_install:
+  - docker build -t dsaraiya73/docker-react -f Dockerfile.dev .
+
+# commands to be executed to run tests
+script:
+  - docker run -e CI=true dsaraiya73/docker-react npm run test
